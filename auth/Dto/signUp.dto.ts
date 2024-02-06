@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsEmail, IsOptional,IsString, MaxLength, IsEnum } from 'class-validator';
+import { IsNotEmpty, IsEmail, IsOptional,IsString, MaxLength, IsEnum, IsInt } from 'class-validator';
 
 export enum Gender {
     Male = 'male',
@@ -53,7 +53,8 @@ export class SignUpDto{
       })
     @IsNotEmpty({ message: 'phoneNumber cannot be empty' })
     @MaxLength(12)
-    phoneNumber:number;
+    // @IsInt()
+    phoneNumber:string;
 
     @ApiProperty({
         example: Gender.Male,
