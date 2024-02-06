@@ -20,7 +20,6 @@ model user {
   address            String?
   gender             String?
   profile_img        String?
-
   created_at         DateTime      @default(now())
   updated_at         DateTime      @updatedAt
 }

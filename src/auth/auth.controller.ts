@@ -1,4 +1,4 @@
-import { Body, Controller, Post } from "@nestjs/common";
+import { Body, Controller, ParseIntPipe, Post } from "@nestjs/common";
 import { AuthService } from "./auth.service";
 import { SignUpDto } from "./Dto/signUp.dto";
 import {ApiOperation,ApiResponse,ApiTags,} from "@nestjs/swagger";
@@ -6,7 +6,7 @@ import {ApiOperation,ApiResponse,ApiTags,} from "@nestjs/swagger";
 
 @ApiTags('Auth')
 @Controller('auth')
-export class LeaderboardController {
+export class AuthController {
     constructor(private readonly authService:AuthService) {}
 
     @ApiResponse({
@@ -18,7 +18,7 @@ export class LeaderboardController {
         description: 'signup currently.',
       })
     @Post('signup')
-    SignUp(@Body()dto:SignUpDto) {
+    SignUp(@Body()dto:SignUpDto, ParseIntPipe) {
       return this.authService.signUp(dto);
     }
 }
