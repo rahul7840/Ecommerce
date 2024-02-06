@@ -65,7 +65,7 @@ async logIn(dto:LogInDto){
 }
   const passwordMatch = await bcrypt.compare(dto.password, user.password);
   if (passwordMatch) return { message: 'Login successful', status: 200 };
- else return { message: 'Invalid credentials', status: 401 };
+   else return { message: 'Invalid credentials', status: 401 };
 }
 
 
