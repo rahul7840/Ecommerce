@@ -3,11 +3,12 @@ import { SignUpDto } from "./Dto/signUp.dto";
 import { PrismaService } from "prisma/prisma.service";
 import * as bcrypt from 'bcrypt';
 import { LogInDto } from "./Dto/logIn.dto";
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService{
  
-constructor(private readonly prisma: PrismaService){}
+constructor(private readonly prisma: PrismaService, private readonly jwtService: JwtService) {}
 
 
 async signUp(dto: SignUpDto) {
@@ -64,8 +65,10 @@ async logIn(dto:LogInDto){
     return { message: 'Invalid credentials', status: 401 };
 }
   const passwordMatch = await bcrypt.compare(dto.password, user.password);
-  if (passwordMatch) return { message: 'Login successful', status: 200 };
-   else return { message: 'Invalid credentials', status: 401 };
+  if (passwordMatch){ 
+  const payload = { username: user.user_name, id: user.id };
+  return { message: 'Login successful', access_token: this.jwtService.sign(payload), status: 200 };
+  }else return { message: 'Invalid credentials', status: 401 };
 }
 
 
