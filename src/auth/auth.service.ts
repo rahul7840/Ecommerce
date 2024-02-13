@@ -48,7 +48,6 @@ async signUp(dto: SignUpDto) {
         return {
             message: 'User created successfully',
             user: createUser,
-            // token: generateToken(createUser),
         };
     } catch (error) {
         throw new BadRequestException('Error creating user');
